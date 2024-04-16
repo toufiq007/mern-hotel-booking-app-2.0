@@ -1,8 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import { connectDB } from "../config/dbconfig";
 
 dotenv.config();
+
+connectDB();
 
 const app = express();
 
@@ -11,12 +14,13 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/test',async(req,res)=>{
-    res.json({
-        message:"hello from backend server"
-    })
-})  
+app.get("/test", async (req, res) => {
+  res.json({
+    message: "hello from backend server",
+  });
+});
 
-app.listen(3000,()=>{
-    console.log("server running on port 3000")
-})
+app.listen(3000, () => {
+  console.log("server running on port 3000");
+});
+
