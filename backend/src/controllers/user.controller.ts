@@ -3,6 +3,7 @@ import UserModel from "../models/user.model";
 import jwt from "jsonwebtoken";
 import { validationResult } from "express-validator";
 import bcrypt from "bcrypt";
+import { generateNewJWT } from "../../utils/generateJWT";
 
 const userRegistration = async (req: Request, res: Response) => {
   const errors = validationResult(req);
@@ -18,11 +19,7 @@ const userRegistration = async (req: Request, res: Response) => {
     await user.save();
 
     // create a jwt token
-    const token = jwt.sign(
-      { userId: user.id },
-      process.env.JWT_SECRET as string,
-      { expiresIn: "1d" }
-    );
+    const token = generateNewJWT(user.id);
     // set this token to cookies
     res.cookie("auth_token", token, {
       httpOnly: true,
@@ -53,11 +50,7 @@ const userLogin = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "invalid user" });
     }
     if (email === user.email && passwordMatch) {
-      const token = jwt.sign(
-        { userId: user.id },
-        process.env.JWT_SECRET as string,
-        { expiresIn: "1d" }
-      );
+      const token = generateNewJWT(user.id);
       res.cookie("auth_token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
