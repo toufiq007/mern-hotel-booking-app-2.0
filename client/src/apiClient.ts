@@ -1,9 +1,9 @@
 import { RegisterdFormType } from "./pages/Register";
 
-const API_BASE_URL = import.meta.env.API_BASE_URL;
+// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const register = async (formData: RegisterdFormType) => {
-  const response = await fetch(`${API_BASE_URL}/api/users/register`, {
+  const response = await fetch(`http://localhost:3000/api/users/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
