@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { connectDB } from "../config/dbconfig";
 import userRoutes from "./routes/user.routes";
+import authRoutes from "./routes/auth.routes";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // all routes
 app.use("/api/users/", userRoutes);
+app.use("/api/auth/", authRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log("server running on port 3000");

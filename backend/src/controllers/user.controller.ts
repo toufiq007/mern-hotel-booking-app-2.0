@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import UserModel from "../models/user.model";
 import jwt from "jsonwebtoken";
 import { validationResult } from "express-validator";
+import bcrypt from "bcrypt";
 
 const userRegistration = async (req: Request, res: Response) => {
   const errors = validationResult(req);
@@ -35,6 +36,43 @@ const userRegistration = async (req: Request, res: Response) => {
   }
 };
 
+const userLogin = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array() });
+  }
+  const { email, password } = req.body;
+
+  try {
+    const user = await UserModel.findOne({ email: email });
+    if (!user) {
+      return res.status(400).json({ message: "invalid user" });
+    }
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(400).json({ message: "invalid user" });
+    }
+    if (email === user.email && passwordMatch) {
+      const token = jwt.sign(
+        { userId: user.id },
+        process.env.JWT_SECRET as string,
+        { expiresIn: "1d" }
+      );
+      res.cookie("auth_token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 86400000,
+      });
+      return res
+        .status(200)
+        .json({ message: "logineed successfull", userId: user._id });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const userControllers = {
   userRegistration,
+  userLogin,
 };
