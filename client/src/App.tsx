@@ -1,6 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./layout/Layout";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -23,6 +24,16 @@ function App() {
               </Layout>
             }
           />
+
+          <Route
+            path="/register"
+            element={
+              <Layout>
+                <Register />
+              </Layout>
+            }
+          />
+
           <Route path="*" element={<span>not found</span>} />
         </Routes>
       </Router>
