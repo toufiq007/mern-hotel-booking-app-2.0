@@ -1,4 +1,5 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
+import Toast from "../components/toast/Toast";
 
 type ToastOptionType = {
   message: string;
@@ -16,15 +17,24 @@ export const AppContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [toast, setToast] = useState<ToastOptionType | undefined>(undefined);
+
   return (
     <AppContext.Provider
       value={{
         showToast: (toastMessage) => {
-          console.log(toastMessage);
+          setToast(toastMessage);
         },
       }}
     >
       {children}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(undefined)}
+        />
+      )}
     </AppContext.Provider>
   );
 };
