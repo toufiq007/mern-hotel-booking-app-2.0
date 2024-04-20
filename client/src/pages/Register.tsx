@@ -28,12 +28,12 @@ const Register = () => {
   // use react query for mutate our data
   const mutation = useMutation(apiClient.register, {
     onSuccess: () => {
-      showToast({ message: "Registration successfull", type: "SUCCESS" });
+      showToast({ message: "Registration successfull!!", type: "SUCCESS" });
       console.log("user registration successfull");
       navigate("/");
     },
     onError: (error: Error) => {
-      showToast({ message: "Registration failed", type: "ERROR" });
+      showToast({ message: error.message, type: "ERROR" });
       console.log(error.message);
     },
   });
