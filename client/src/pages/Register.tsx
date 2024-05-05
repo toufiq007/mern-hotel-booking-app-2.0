@@ -135,7 +135,7 @@ const Register = () => {
             <span className="mr-3">Already registered?</span>
             <span>
               <Link
-                to="/login"
+                to="/sign-in"
                 className=""
                 style={{ borderBottom: "2px solid #000" }}
               >

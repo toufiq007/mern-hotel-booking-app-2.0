@@ -32,6 +32,16 @@ export const signIn = async (formData: SignInFormProps) => {
   }
 };
 
+export const logout = async () => {
+  const response = await fetch(`http://localhost:3000/api/auth/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error during signout");
+  }
+};
+
 export const validateToken = async () => {
   const response = await fetch(
     `http://localhost:3000/api/auth/validate-token`,

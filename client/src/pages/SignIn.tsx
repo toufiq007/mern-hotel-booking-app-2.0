@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 // import { Link } from "react-router-dom";
 import * as apiClient from "../apiClient";
 import { useAppContext } from "../context/AppContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export type SignInFormProps = {
   email: string;
@@ -71,18 +71,18 @@ const SignIn = () => {
         </div>
 
         <div className="flex justify-between mt-3">
-          {/* <div className="">
-            <span className="mr-3">Already registered?</span>
+          <div className="">
+            <span className="mr-3">Create a new Account?</span>
             <span>
               <Link
-                to="/login"
+                to="/register"
                 className=""
                 style={{ borderBottom: "2px solid #000" }}
               >
-                Sign in here
+                Register here
               </Link>
             </span>
-          </div> */}
+          </div>
           <button type="submit" className="bg-blue-800 text-white py-3 px-3">
             Sign In
           </button>
