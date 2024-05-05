@@ -65,7 +65,15 @@ const userLogin = async (req: Request, res: Response) => {
   }
 };
 
+const userLogOut = async (req: Request, res: Response) => {
+  res.cookie("auth_token", "", {
+    expires: new Date(0), // for vanish the token
+  });
+  res.status(200).json({ message: "logout successfull" });
+};
+
 export const userControllers = {
   userRegistration,
   userLogin,
+  userLogOut,
 };
