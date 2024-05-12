@@ -11,6 +11,10 @@ const SignOutButton = () => {
       await queryClient.invalidateQueries("auth_token");
       showToast({ message: "user logout succesfull", type: "SUCCESS" });
     },
+    onError: async (error: Error) => {
+      await queryClient.invalidateQueries("auth_token");
+      showToast({ message: error.message, type: "ERROR" });
+    },
   });
   const handleLogout = () => {
     console.log("logout hoiche");
