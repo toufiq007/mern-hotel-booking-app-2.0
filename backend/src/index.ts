@@ -5,8 +5,9 @@ import { connectDB } from "../config/dbconfig";
 import userRoutes from "./routes/user.routes";
 import authRoutes from "./routes/auth.routes";
 import cookieParser from "cookie-parser";
+import "dotenv/config";
 
-dotenv.config();
+// dotenv.config();
 
 connectDB();
 
